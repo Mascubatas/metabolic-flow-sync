@@ -4,6 +4,7 @@ import {
   Bar,
   BarChart,
   CartesianGrid,
+  ComposedChart,
   Legend,
   Line,
   LineChart,
@@ -166,14 +167,14 @@ function AnalyticsPage() {
       </ChartCard>
 
       <ChartCard title="Hydration (L per day)">
-        <BarChart data={hydrationData}>
+        <ComposedChart data={hydrationData}>
           <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
           <XAxis dataKey="date" fontSize={11} stroke="hsl(var(--muted-foreground))" />
           <YAxis fontSize={11} stroke="hsl(var(--muted-foreground))" />
           <Tooltip contentStyle={tooltipStyle} />
           <Bar dataKey="liters" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
           <Line type="monotone" dataKey="target" stroke="hsl(var(--accent))" dot={false} />
-        </BarChart>
+        </ComposedChart>
       </ChartCard>
 
       <ChartCard title="Workout adherence">
