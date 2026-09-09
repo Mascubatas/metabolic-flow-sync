@@ -18,6 +18,7 @@ import { useStore } from "@/lib/store";
 import { generatePlan, todayKey } from "@/lib/calc";
 import type {
   ActivityLevel,
+  Biomarkers,
   Condition,
   JointIssue,
   Medication,
