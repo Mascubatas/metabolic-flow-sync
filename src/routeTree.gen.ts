@@ -10,12 +10,24 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AnalyticsRouteImport } from './routes/analytics'
+import { Route as NutritionRouteImport } from './routes/nutrition'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as TrainingRouteImport } from './routes/training'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AnalyticsRoute = AnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NutritionRoute = NutritionRouteImport.update({
+  id: '/nutrition',
+  path: '/nutrition',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OnboardingRoute = OnboardingRouteImport.update({
@@ -31,30 +43,39 @@ const TrainingRoute = TrainingRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/analytics': typeof AnalyticsRoute
+  '/nutrition': typeof NutritionRoute
   '/onboarding': typeof OnboardingRoute
   '/training': typeof TrainingRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/analytics': typeof AnalyticsRoute
+  '/nutrition': typeof NutritionRoute
   '/onboarding': typeof OnboardingRoute
   '/training': typeof TrainingRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/analytics': typeof AnalyticsRoute
+  '/nutrition': typeof NutritionRoute
   '/onboarding': typeof OnboardingRoute
   '/training': typeof TrainingRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/onboarding' | '/training'
+  fullPaths: '/' | '/analytics' | '/nutrition' | '/onboarding' | '/training'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/onboarding' | '/training'
-  id: '__root__' | '/' | '/onboarding' | '/training'
+  to: '/' | '/analytics' | '/nutrition' | '/onboarding' | '/training'
+  id:
+    '__root__' | '/' | '/analytics' | '/nutrition' | '/onboarding' | '/training'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AnalyticsRoute: typeof AnalyticsRoute
+  NutritionRoute: typeof NutritionRoute
   OnboardingRoute: typeof OnboardingRoute
   TrainingRoute: typeof TrainingRoute
 }
@@ -66,6 +87,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/analytics': {
+      id: '/analytics'
+      path: '/analytics'
+      fullPath: '/analytics'
+      preLoaderRoute: typeof AnalyticsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nutrition': {
+      id: '/nutrition'
+      path: '/nutrition'
+      fullPath: '/nutrition'
+      preLoaderRoute: typeof NutritionRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/onboarding': {
@@ -87,6 +122,8 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AnalyticsRoute: AnalyticsRoute,
+  NutritionRoute: NutritionRoute,
   OnboardingRoute: OnboardingRoute,
   TrainingRoute: TrainingRoute,
 }
