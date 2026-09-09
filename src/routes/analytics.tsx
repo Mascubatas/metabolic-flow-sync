@@ -57,8 +57,9 @@ const LAB_FIELDS: { key: keyof BiomarkerEntry; label: string }[] = [
 ];
 
 function AnalyticsPage() {
-  const { hydrated, state, update, setSettings, reset } = useStore();
+  const { hydrated, state, update, updateDay, setSettings, reset } = useStore();
   const [labs, setLabs] = useState<Record<string, string>>({});
+  const [weightInput, setWeightInput] = useState("");
   const { plan, profile } = state;
 
   const last14 = useMemo(() => {
@@ -147,6 +148,29 @@ function AnalyticsPage() {
           Next blood work {plan.bloodworkDate} · start weight {profile.weight} kg · target{" "}
           {profile.targetWeight} kg
         </p>
+      </section>
+
+      <section className="panel flex items-end gap-3 p-5">
+        <div className="flex-1">
+          <Label className="text-xs">Today&apos;s weight (kg)</Label>
+          <Input
+            inputMode="decimal"
+            value={weightInput}
+            onChange={(e) => setWeightInput(e.target.value)}
+            placeholder={String(profile.weight)}
+          />
+        </div>
+        <Button
+          onClick={() => {
+            const v = Number(weightInput);
+            if (!v) return toast.error("Enter a weight");
+            updateDay((d) => ({ ...d, weight: v }));
+            setWeightInput("");
+            toast.success("Weight logged");
+          }}
+        >
+          Log
+        </Button>
       </section>
 
       <ChartCard title="Weight trend (14 days)">
