@@ -18,6 +18,7 @@ import { useStore } from "@/lib/store";
 import { generatePlan, todayKey } from "@/lib/calc";
 import type {
   ActivityLevel,
+  Biomarkers,
   Condition,
   JointIssue,
   Medication,
@@ -142,6 +143,15 @@ function Onboarding() {
 
   const num = (v: string) => (v.trim() === "" ? undefined : Number(v));
 
+  function buildBiomarkers(src: Record<string, string>) {
+    const out: Record<string, number> = {};
+    for (const k of ["hba1c","glucose","insulin","ldl","hdl","triglycerides","egfr","urea","uricAcid"]) {
+      const n = num(src[k] ?? "");
+      if (n !== undefined && !Number.isNaN(n)) out[k] = n;
+    }
+    return out as Biomarkers;
+  }
+
   const profile: Profile = {
     name: name || "Athlete",
     age: Number(age) || 35,
@@ -153,17 +163,7 @@ function Onboarding() {
     conditions,
     joints,
     medications: meds,
-    biomarkers: {
-      hba1c: num(labs.hba1c ?? ""),
-      glucose: num(labs.glucose ?? ""),
-      insulin: num(labs.insulin ?? ""),
-      ldl: num(labs.ldl ?? ""),
-      hdl: num(labs.hdl ?? ""),
-      triglycerides: num(labs.triglycerides ?? ""),
-      egfr: num(labs.egfr ?? ""),
-      urea: num(labs.urea ?? ""),
-      uricAcid: num(labs.uricAcid ?? ""),
-    },
+    biomarkers: buildBiomarkers(labs),
     startDate: todayKey(),
   };
 
