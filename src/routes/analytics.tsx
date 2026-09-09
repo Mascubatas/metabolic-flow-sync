@@ -115,7 +115,7 @@ function AnalyticsPage() {
     for (const f of LAB_FIELDS) {
       const v = Number(labs[f.key as string]);
       if (labs[f.key as string] && !Number.isNaN(v)) {
-        (entry as Record<string, unknown>)[f.key as string] = v;
+        (entry as unknown as Record<string, unknown>)[f.key as string] = v;
         any = true;
       }
     }
@@ -163,7 +163,10 @@ function AnalyticsPage() {
         <Button
           onClick={() => {
             const v = Number(weightInput);
-            if (!v) return toast.error("Enter a weight");
+            if (!v) {
+              toast.error("Enter a weight");
+              return;
+            }
             updateDay((d) => ({ ...d, weight: v }));
             setWeightInput("");
             toast.success("Weight logged");
