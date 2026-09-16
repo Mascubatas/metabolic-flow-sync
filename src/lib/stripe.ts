@@ -6,8 +6,8 @@ export const PRODUCT_PRICE_USD = 2900;
 
 export function getStripeSecretKey() {
   const values = [
-    typeof process !== "undefined" ? process.env?.STRIPE_SECRET_KEY : undefined,
-    typeof process !== "undefined" ? process.env?.STRIPE_KEY : undefined,
+    typeof process !== "undefined" ? process.env["STRIPE_SECRET_KEY"] : undefined,
+    typeof process !== "undefined" ? process.env["STRIPE_KEY"] : undefined,
   ];
 
   return values.find((value) => typeof value === "string" && value.trim().length > 0)?.trim() ?? "";
@@ -37,7 +37,8 @@ export const createCheckoutSession = createServerFn({ method: "POST" })
     }
 
     const stripe = new Stripe(secretKey);
-    const siteUrl = process.env.APP_URL || process.env.PUBLIC_URL || "http://localhost:8080";
+    const siteUrl =
+      process.env["APP_URL"] || process.env["PUBLIC_URL"] || "http://localhost:8080";
 
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
