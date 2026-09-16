@@ -201,7 +201,7 @@ function Onboarding() {
       </div>
 
       {step === 0 && (
-        <section className="panel space-y-4 p-5">
+        <section className="panel relative z-10 space-y-4 p-5 [pointer-events:auto]">
           <div className="flex items-center gap-2 text-primary">
             <Activity className="h-4 w-4" />
             <h2 className="text-sm font-semibold uppercase tracking-wide">Core biometrics</h2>
