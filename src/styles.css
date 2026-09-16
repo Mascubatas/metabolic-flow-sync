@@ -119,6 +119,21 @@
   }
 }
 
+/* The platform badge is injected outside the React tree on hosted builds. */
+#lovable-badge,
+.lovable-badge,
+[data-lovable-badge],
+[data-testid="lovable-badge"] {
+  display: none !important;
+  visibility: hidden !important;
+  width: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+}
+
 @utility panel {
   background: linear-gradient(
     160deg,
