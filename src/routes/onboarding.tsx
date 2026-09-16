@@ -96,16 +96,20 @@ function Chip({
 
 function Field({
   label,
+  id,
   children,
   hint,
 }: {
   label: string;
+  id?: string;
   children: React.ReactNode;
   hint?: string;
 }) {
   return (
     <div className="space-y-1.5">
-      <Label className="text-xs uppercase tracking-wide text-muted-foreground">{label}</Label>
+      <Label htmlFor={id} className="text-xs uppercase tracking-wide text-muted-foreground">
+        {label}
+      </Label>
       {children}
       {hint ? <p className="text-[11px] text-muted-foreground">{hint}</p> : null}
     </div>
@@ -202,12 +206,17 @@ function Onboarding() {
             <Activity className="h-4 w-4" />
             <h2 className="text-sm font-semibold uppercase tracking-wide">Core biometrics</h2>
           </div>
-          <Field label="Name">
-            <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name" />
+          <Field label="Name" id="onboarding-name">
+            <Input
+              id="onboarding-name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Your name"
+            />
           </Field>
           <div className="grid grid-cols-2 gap-3">
-            <Field label="Age">
-              <Input value={age} onChange={(e) => setAge(e.target.value)} inputMode="numeric" />
+            <Field label="Age" id="onboarding-age">
+              <Input id="onboarding-age" value={age} onChange={(e) => setAge(e.target.value)} inputMode="numeric" />
             </Field>
             <Field label="Sex">
               <div className="grid grid-cols-2 gap-2">
@@ -218,22 +227,25 @@ function Onboarding() {
                 ))}
               </div>
             </Field>
-            <Field label="Height (cm)">
+            <Field label="Height (cm)" id="onboarding-height">
               <Input
+                id="onboarding-height"
                 value={height}
                 onChange={(e) => setHeight(e.target.value)}
                 inputMode="numeric"
               />
             </Field>
-            <Field label="Weight (kg)">
+            <Field label="Weight (kg)" id="onboarding-weight">
               <Input
+                id="onboarding-weight"
                 value={weight}
                 onChange={(e) => setWeight(e.target.value)}
                 inputMode="numeric"
               />
             </Field>
-            <Field label="Target weight (kg)">
+            <Field label="Target weight (kg)" id="onboarding-target-weight">
               <Input
+                id="onboarding-target-weight"
                 value={target}
                 onChange={(e) => setTarget(e.target.value)}
                 inputMode="numeric"
