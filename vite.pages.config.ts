@@ -4,6 +4,7 @@ import tailwindcss from "@tailwindcss/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
+  root: "pages",
   base: "/metabolic-flow-sync/",
   plugins: [react(), tailwindcss(), tsconfigPaths()],
   resolve: {
@@ -12,6 +13,6 @@ export default defineConfig({
     },
   },
   build: {
-    outDir: "dist",
+    outDir: "../dist",
   },
 });
